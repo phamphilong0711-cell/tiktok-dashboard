@@ -160,7 +160,7 @@
             document.getElementById('loader').style.display = 'block';
             try {
                 if (!globalData) {
-                    const res = await fetch(`data.json?t=${new Date().getTime()}`);
+                    const res = await fetch(`../data.json?t=${new Date().getTime()}`);
                     globalData = await res.json();
                 }
                 const start = document.getElementById('startDate').value;
