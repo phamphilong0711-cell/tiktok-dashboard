@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+.env
+config.env
+google-ads.yaml
+*.db
+!shop_data.db
+.DS_Store

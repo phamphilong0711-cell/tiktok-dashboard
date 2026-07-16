@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo Sale TMĐT | Omnichannel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="top-nav">
+        <h1>BÁO CÁO SALE TMĐT</h1>
+        <div class="nav-tabs">
+            <a href="#" class="nav-tab active">Overview</a>
+            <a href="#" class="nav-tab">TMĐT</a>
+            <a href="#" class="nav-tab">Sale Online</a>
+            <a href="#" class="nav-tab">Sale Facebook</a>
+            <a href="#" class="nav-tab">Tổng DT seller</a>
+            <a href="#" class="nav-tab" style="margin-left: auto;" onclick="openSettings()">⚙️ Mục Tiêu</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label>Từ ngày</label>
+                <input type="date" id="startDate" value="2026-07-06">
+            </div>
+            <div class="filter-group">
+                <label>Đến ngày</label>
+                <input type="date" id="endDate" value="2026-07-13">
+            </div>
+            <div class="filter-group" style="margin-left: 20px;">
+                <label>SELLER</label>
+                <select id="sellerFilter"><option>Tất cả seller</option></select>
+            </div>
+            <div class="filter-group">
+                <label>SOURCE</label>
+                <select id="sourceFilter"><option>Tất cả source</option></select>
+            </div>
+            <button class="btn-primary" onclick="fetchData()">Lọc</button>
+            <div class="loader" id="loader"></div>
+        </div>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-title">Doanh thu</div>
+                <div class="kpi-value" id="val-revenue" style="color: var(--primary)">0</div>
+                <div class="kpi-growth" id="pacing-revenue"></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">SL đơn</div>
+                <div class="kpi-value" id="val-orders" style="color: var(--primary)">0</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Doanh thu / đơn</div>
+                <div class="kpi-value" id="val-aov">0</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Doanh thu / Ngày</div>
+                <div class="kpi-value" id="val-daily-avg">0</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Upsell</div>
+                <div class="kpi-value" id="val-upsell">0</div>
+            </div>
+            <div class="kpi-card green">
+                <div class="kpi-title">Doanh thu chốt cuối</div>
+                <div class="kpi-value" id="val-final-revenue" style="color: var(--success)">0</div>
+            </div>
+            <div class="kpi-card red">
+                <div class="kpi-title">Tổng Chi phí Quảng Cáo</div>
+                <div class="kpi-value" id="val-spend" style="color: var(--danger)">0</div>
+            </div>
+            <div class="kpi-card purple">
+                <div class="kpi-title">Tỷ lệ Chi phí / Doanh thu</div>
+                <div class="kpi-value" id="val-cost-ratio" style="color: #8b5cf6">0.0%</div>
+                <div class="kpi-growth" id="pacing-cost"></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Mục Tiêu Doanh Thu (Tháng)</div>
+                <div class="kpi-value" id="val-target-rev">0</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Mục Tiêu Chi Phí %</div>
+                <div class="kpi-value" id="val-target-ratio">0.0%</div>
+            </div>
+        </div>
+        
+        <!-- CIR Theo Kênh -->
+        <h3 style="margin-top: 10px; font-size: 1rem; color: #64748b;">Tỷ lệ CIR theo kênh</h3>
+        <div class="overview-grid" id="channel-cir-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 10px;">
+            <!-- Render via JS -->
+        </div>
+
+        <div class="charts-row">
+            <div class="chart-card">
+                <div class="chart-header">Tỷ trọng Nguồn doanh thu</div>
+                <div class="chart-body">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">Tỷ trọng Nguồn chi phí</div>
+                <div class="chart-body">
+                    <canvas id="spendPieChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">Chi phí Vận hành/Khác</div>
+                <div class="chart-body" id="other-costs-container" style="overflow-y: auto; padding: 10px;">
+                    <!-- Render via JS -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="charts-row" style="margin-top: 20px;">
+            <div class="chart-card" style="width: 100%;">
+                <div class="chart-header">DT chốt và Chi phí theo ngày</div>
+                <div class="chart-body">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <h3>Cài đặt Mục tiêu</h3>
+            <div class="form-group">
+                <label>Tháng (YYYY-MM)</label>
+                <input type="month" id="targetMonth" value="2026-07">
+            </div>
+            <div class="form-group">
+                <label>Mục tiêu Doanh thu (VND)</label>
+                <input type="number" id="targetRevInput" placeholder="Ví dụ: 5000000000">
+            </div>
+            <div class="form-group">
+                <label>Tỷ lệ Chi phí Kì vọng (%)</label>
+                <input type="number" step="0.1" id="targetCostInput" placeholder="Ví dụ: 15.5">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeSettings()">Huỷ</button>
+                <button class="btn-primary" onclick="saveTarget()">Lưu</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const formatVND = (num) => new Intl.NumberFormat('vi-VN').format(num);
+        let pieChartInst = null;
+        let spendPieChartInst = null;
+        let lineChartInst = null;
+
+        let globalData = null;
+
+        async function fetchData() {
+            document.getElementById('loader').style.display = 'block';
+            try {
+                if (!globalData) {
+                    const res = await fetch(`data.json?t=${new Date().getTime()}`);
+                    globalData = await res.json();
+                }
+                const start = document.getElementById('startDate').value;
+                const end = document.getElementById('endDate').value;
+                
+                processData(start, end);
+            } catch (error) {
+                console.error("Error:", error);
+            } finally {
+                document.getElementById('loader').style.display = 'none';
+            }
+        }
+
+        function processData(start, end) {
+            let revData = globalData.revenue_data.filter(d => d.date >= start && d.date <= end);
+            let spendData = globalData.spend_data.filter(d => d.date >= start && d.date <= end);
+            
+            // Tính toán summary
+            let total_rev = 0, total_orders = 0, total_upsell = 0, total_final = 0;
+            let source_distribution = {};
+            
+            revData.forEach(r => {
+                total_rev += r.total_rev || 0;
+                total_orders += r.total_orders || 0;
+                total_upsell += r.total_upsell || 0;
+                total_final += r.total_final || 0;
+                source_distribution[r.source] = (source_distribution[r.source] || 0) + (r.total_rev || 0);
+            });
+            
+            let total_spend = 0;
+            let spend_distribution = {};
+            let other_costs_list = [];
+            let total_other_costs = 0;
+            
+            spendData.forEach(s => {
+                if (s.platform.startsWith('Khác - ')) {
+                    let name = s.platform.replace('Khác - ', '');
+                    other_costs_list.push({name: name, spend: s.total_spend || 0});
+                    total_other_costs += s.total_spend || 0;
+                } else {
+                    total_spend += s.total_spend || 0;
+                    spend_distribution[s.platform] = (spend_distribution[s.platform] || 0) + (s.total_spend || 0);
+                }
+            });
+
+            // Gộp trùng tên cho other_costs_list
+            let otherCostsMap = {};
+            other_costs_list.forEach(c => {
+                otherCostsMap[c.name] = (otherCostsMap[c.name] || 0) + c.spend;
+            });
+            other_costs_list = Object.keys(otherCostsMap).map(k => ({name: k, spend: otherCostsMap[k]}));
+            
+            // CIR by channel
+            let cir_by_channel = {};
+            Object.keys(source_distribution).forEach(src => {
+                let spend = 0;
+                if (src === 'Shopee') spend = (spend_distribution['Shopee'] || 0) + (spend_distribution['SHOPEE_ADS'] || 0);
+                else if (src === 'TikTok') spend = (spend_distribution['TikTok'] || 0);
+                else if (src === 'Facebook') spend = (spend_distribution['Facebook'] || 0);
+                else if (src === 'Lazada') spend = (spend_distribution['Lazada'] || 0);
+                else if (src === 'Google') spend = (spend_distribution['Google'] || 0);
+                
+                let rev = source_distribution[src] || 0;
+                if (spend > 0 || rev > 0) {
+                    cir_by_channel[src] = {
+                        spend: spend,
+                        revenue: rev,
+                        cir: rev > 0 ? (spend / rev * 100) : 0
+                    };
+                }
+            });
+
+            let pie_chart = Object.keys(source_distribution).map(k => ({name: k, value: source_distribution[k]})).filter(x => x.value > 0);
+            let spend_pie_chart = Object.keys(spend_distribution).map(k => ({name: k, value: spend_distribution[k]})).filter(x => x.value > 0);
+            
+            // Daily Trends
+            let daily_trends = {};
+            revData.forEach(r => {
+                if (!daily_trends[r.date]) daily_trends[r.date] = {date: r.date, revenue: 0, orders: 0, spend: 0};
+                daily_trends[r.date].revenue += r.total_rev || 0;
+                daily_trends[r.date].orders += r.total_orders || 0;
+            });
+            spendData.forEach(s => {
+                if (s.platform.startsWith('Khác - ')) return;
+                if (!daily_trends[s.date]) daily_trends[s.date] = {date: s.date, revenue: 0, orders: 0, spend: 0};
+                daily_trends[s.date].spend += s.total_spend || 0;
+            });
+            let trend_list = Object.values(daily_trends).sort((a, b) => a.date.localeCompare(b.date));
+
+            // Targets & MTD
+            let startDtObj = new Date(start);
+            let monthStr = startDtObj.getFullYear() + "-" + String(startDtObj.getMonth() + 1).padStart(2, '0');
+            let target = globalData.monthly_targets[monthStr] || {target_revenue: 0, target_cost_ratio: 0};
+            
+            let mtd_start = monthStr + "-01";
+            let mtd_rev_data = globalData.revenue_data.filter(d => d.date >= mtd_start && d.date <= end);
+            let mtd_spend_data = globalData.spend_data.filter(d => d.date >= mtd_start && d.date <= end && !d.platform.startsWith('Khác - '));
+            
+            let mtd_revenue = mtd_rev_data.reduce((sum, r) => sum + (r.total_rev || 0), 0);
+            let mtd_spend = mtd_spend_data.reduce((sum, s) => sum + (s.total_spend || 0), 0);
+            let mtd_cost_ratio = mtd_revenue > 0 ? (mtd_spend / mtd_revenue * 100) : 0;
+
+            let aov = total_orders > 0 ? total_rev / total_orders : 0;
+            
+            let startMs = new Date(start).getTime();
+            let endMs = new Date(end).getTime();
+            let diffDays = Math.ceil((endMs - startMs) / (1000 * 60 * 60 * 24)) + 1;
+            let daily_avg = diffDays > 0 ? total_rev / diffDays : 0;
+
+            let summary = {
+                total_revenue: total_rev,
+                total_orders: total_orders,
+                aov: aov,
+                daily_avg: daily_avg,
+                upsell: total_upsell,
+                final_revenue: total_final,
+                total_spend: total_spend,
+                cost_ratio: total_rev > 0 ? (total_spend / total_rev * 100) : 0,
+                target_revenue: target.target_revenue,
+                target_cost_ratio: target.target_cost_ratio,
+                mtd_revenue: mtd_revenue,
+                mtd_spend: mtd_spend,
+                mtd_cost_ratio: mtd_cost_ratio
+            };
+
+            updateOverview(summary);
+            updateCIRChannels(cir_by_channel);
+            updateOtherCosts(other_costs_list, total_other_costs);
+            updatePieChart(pie_chart);
+            updateSpendPieChart(spend_pie_chart);
+            updateLineChart(trend_list);
+        }
+
+        function updateOverview(sum) {
+            document.getElementById('val-revenue').innerText = formatVND(sum.total_revenue);
+            document.getElementById('val-orders').innerText = formatVND(sum.total_orders);
+            document.getElementById('val-aov').innerText = formatVND(sum.aov);
+            document.getElementById('val-daily-avg').innerText = formatVND(sum.daily_avg);
+            document.getElementById('val-upsell').innerText = formatVND(sum.upsell);
+            document.getElementById('val-final-revenue').innerText = formatVND(sum.final_revenue);
+            document.getElementById('val-spend').innerText = formatVND(sum.total_spend);
+            document.getElementById('val-cost-ratio').innerText = sum.cost_ratio.toFixed(2) + '%';
+            
+            document.getElementById('val-target-rev').innerText = formatVND(sum.target_revenue);
+            document.getElementById('val-target-ratio').innerText = sum.target_cost_ratio + '%';
+
+            // Pacing (Dựa trên số Lũy kế Tháng)
+            if (sum.target_revenue > 0) {
+                let pct = (sum.mtd_revenue / sum.target_revenue * 100).toFixed(1);
+                document.getElementById('pacing-revenue').innerHTML = `<span class="growth-up">Lũy kế tháng: ${formatVND(sum.mtd_revenue)} (${pct}%)</span>`;
+            } else {
+                document.getElementById('pacing-revenue').innerHTML = `<span style="color:var(--text-muted)">Lũy kế tháng: ${formatVND(sum.mtd_revenue)}</span>`;
+            }
+
+            if (sum.target_cost_ratio > 0) {
+                let diff = (sum.mtd_cost_ratio - sum.target_cost_ratio).toFixed(1);
+                let text = `Lũy kế tháng: ${sum.mtd_cost_ratio.toFixed(1)}%`;
+                if (diff > 0) {
+                    document.getElementById('pacing-cost').innerHTML = `<span>${text}</span> <span class="growth-down">(Vượt mục tiêu ${diff}%)</span>`;
+                } else {
+                    document.getElementById('pacing-cost').innerHTML = `<span>${text}</span> <span class="growth-up">(Dưới mức ${Math.abs(diff)}%)</span>`;
+                }
+            } else {
+                document.getElementById('pacing-cost').innerHTML = `<span style="color:var(--text-muted)">Lũy kế tháng: ${sum.mtd_cost_ratio.toFixed(1)}%</span>`;
+            }
+        }
+
+        function updateCIRChannels(cirData) {
+            const container = document.getElementById('channel-cir-grid');
+            container.innerHTML = '';
+            const colors = {'Shopee': '#f97316', 'TikTok': '#000000', 'Lazada': '#03045e', 'Facebook': '#1877f2', 'Google': '#ea4335'};
+            
+            for (let [channel, data] of Object.entries(cirData)) {
+                let color = colors[channel] || '#64748b';
+                let cirText = data.cir.toFixed(1) + '%';
+                
+                let card = document.createElement('div');
+                card.className = 'kpi-card';
+                card.style.borderTop = `3px solid ${color}`;
+                card.innerHTML = `
+                    <div class="kpi-title" style="color: ${color}; font-weight: bold;">${channel}</div>
+                    <div class="kpi-value">${cirText}</div>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 5px;">
+                        Chi phí: ${formatVND(data.spend)}<br>
+                        DT: ${formatVND(data.revenue)}
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        }
+        
+        function updateOtherCosts(costs, total) {
+            const container = document.getElementById('other-costs-container');
+            if (costs.length === 0) {
+                container.innerHTML = '<div style="color:#64748b; font-size: 0.9rem; text-align: center; margin-top: 20px;">Không có chi phí khác</div>';
+                return;
+            }
+            
+            let html = `
+                <div style="margin-bottom: 15px; font-weight: 600; color: #334155; font-size: 1.1rem;">
+                    Tổng cộng: <span style="color: #ef4444">${formatVND(total)}</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+            `;
+            
+            costs.forEach(c => {
+                let pct = total > 0 ? (c.spend / total * 100).toFixed(1) : 0;
+                html += `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px; background: #f8fafc; border-radius: 6px;">
+                        <div>
+                            <div style="font-size: 0.9rem; font-weight: 500; color: #475569;">${c.name}</div>
+                            <div style="font-size: 0.75rem; color: #94a3b8;">${pct}% tổng chi phí khác</div>
+                        </div>
+                        <div style="font-weight: 600; color: #1e293b;">${formatVND(c.spend)}</div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function updatePieChart(sources) {
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            if (pieChartInst) pieChartInst.destroy();
+            
+            pieChartInst = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: sources.map(s => s.name),
+                    datasets: [{
+                        data: sources.map(s => s.value),
+                        backgroundColor: ['#2563eb', '#f59e0b', '#8b5cf6', '#ec4899', '#10b981', '#3b82f6', '#ef4444'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        }
+
+        function updateSpendPieChart(sources) {
+            const ctx = document.getElementById('spendPieChart').getContext('2d');
+            if (spendPieChartInst) spendPieChartInst.destroy();
+            
+            spendPieChartInst = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: sources.map(s => s.name),
+                    datasets: [{
+                        data: sources.map(s => s.value),
+                        backgroundColor: ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        }
+
+        function updateLineChart(trends) {
+            const ctx = document.getElementById('lineChart').getContext('2d');
+            if (lineChartInst) lineChartInst.destroy();
+            
+            lineChartInst = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: trends.map(t => t.date),
+                    datasets: [
+                        {
+                            label: 'Doanh Thu',
+                            data: trends.map(t => t.revenue),
+                            borderColor: '#2563eb',
+                            backgroundColor: 'transparent',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Chi Phí',
+                            data: trends.map(t => t.spend),
+                            borderColor: '#ef4444',
+                            backgroundColor: 'transparent',
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false }
+                }
+            });
+        }
+
+        // Settings Modal
+        function openSettings() { document.getElementById('settingsModal').classList.add('active'); loadTarget(); }
+        function closeSettings() { document.getElementById('settingsModal').classList.remove('active'); }
+        
+        async function loadTarget() {
+            const month = document.getElementById('targetMonth').value;
+            const res = await fetch(`/api/settings/target?month=${month}`);
+            const json = await res.json();
+            if (json.status === 'success') {
+                document.getElementById('targetRevInput').value = json.data.target_revenue || '';
+                document.getElementById('targetCostInput').value = json.data.target_cost_ratio || '';
+            }
+        }
+        
+        document.getElementById('targetMonth').addEventListener('change', loadTarget);
+
+        async function saveTarget() {
+            const month = document.getElementById('targetMonth').value;
+            const rev = document.getElementById('targetRevInput').value;
+            const cost = document.getElementById('targetCostInput').value;
+            
+            await fetch('/api/settings/target', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ month: month, target_revenue: parseFloat(rev), target_cost_ratio: parseFloat(cost) })
+            });
+            closeSettings();
+            fetchData();
+        }
+
+        // Init
+        fetchData();
+    </script>
+</body>
+</html>
