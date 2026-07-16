@@ -218,11 +218,12 @@
             Object.keys(source_distribution).forEach(src => {
                 let spend = 0;
                 if (src === 'Shopee') spend = (spend_distribution['Shopee'] || 0) + (spend_distribution['SHOPEE_ADS'] || 0);
-                else if (src === 'TikTok') spend = (spend_distribution['TikTok'] || 0);
-                else if (src === 'Facebook') spend = (spend_distribution['Facebook'] || 0);
+                else if (src === 'TikTok') spend = (spend_distribution['TikTok Ads'] || 0) + (spend_distribution['TIKTOK_ADS'] || 0);
+                else if (src === 'Facebook') spend = (spend_distribution['Facebook Ads'] || 0);
                 else if (src === 'Lazada') spend = (spend_distribution['Lazada'] || 0);
-                else if (src === 'Google') spend = (spend_distribution['Google'] || 0);
-                
+                else if (src === 'Google') spend = (spend_distribution['Google Ads'] || 0);
+
+
                 let rev = source_distribution[src] || 0;
                 if (spend > 0 || rev > 0) {
                     cir_by_channel[src] = {
