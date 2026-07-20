@@ -821,7 +821,7 @@
     {
       "date": "2026-07-12",
       "platform": "Facebook Ads",
-      "total_spend": 709212.0
+      "total_spend": 709307.0
     },
     {
       "date": "2026-07-12",
@@ -846,7 +846,7 @@
     {
       "date": "2026-07-13",
       "platform": "Facebook Ads",
-      "total_spend": 432683.0
+      "total_spend": 614971.0
     },
     {
       "date": "2026-07-13",
@@ -865,6 +865,11 @@
     },
     {
       "date": "2026-07-14",
+      "platform": "Facebook Ads",
+      "total_spend": 531368.0
+    },
+    {
+      "date": "2026-07-14",
       "platform": "Shopee",
       "total_spend": 1254016.0
     },
@@ -872,6 +877,11 @@
       "date": "2026-07-14",
       "platform": "TikTok Ads",
       "total_spend": 1388356.0
+    },
+    {
+      "date": "2026-07-15",
+      "platform": "Facebook Ads",
+      "total_spend": 601022.0
     },
     {
       "date": "2026-07-15",
@@ -885,6 +895,11 @@
     },
     {
       "date": "2026-07-16",
+      "platform": "Facebook Ads",
+      "total_spend": 824227.0
+    },
+    {
+      "date": "2026-07-16",
       "platform": "Shopee",
       "total_spend": 1665664.0
     },
@@ -892,6 +907,11 @@
       "date": "2026-07-16",
       "platform": "TikTok Ads",
       "total_spend": 1181097.0
+    },
+    {
+      "date": "2026-07-17",
+      "platform": "Facebook Ads",
+      "total_spend": 749124.0
     },
     {
       "date": "2026-07-17",
@@ -905,6 +925,11 @@
     },
     {
       "date": "2026-07-18",
+      "platform": "Facebook Ads",
+      "total_spend": 607092.0
+    },
+    {
+      "date": "2026-07-18",
       "platform": "Shopee",
       "total_spend": 1375282.0
     },
@@ -915,6 +940,11 @@
     },
     {
       "date": "2026-07-19",
+      "platform": "Facebook Ads",
+      "total_spend": 653476.0
+    },
+    {
+      "date": "2026-07-19",
       "platform": "Shopee",
       "total_spend": 1393802.0
     },
@@ -922,6 +952,11 @@
       "date": "2026-07-19",
       "platform": "TikTok Ads",
       "total_spend": 1154094.0
+    },
+    {
+      "date": "2026-07-20",
+      "platform": "Facebook Ads",
+      "total_spend": 196387.0
     }
   ],
   "monthly_targets": {
