@@ -158,6 +158,33 @@ body {
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
+.charts-row-full {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.cir-pill {
+    display: inline-flex;
+    align-items: center;
+    background: #f1f5f9;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 5px 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.cir-pill span {
+    margin-left: 8px;
+    color: var(--primary);
+    font-weight: 700;
+}
+.cir-pill.warning span {
+    color: var(--danger);
+}
 .chart-header {
     background-color: var(--primary);
     color: white;

@@ -90,7 +90,7 @@
         
         <!-- CIR Theo Kênh -->
         <h3 style="margin-top: 10px; font-size: 1rem; color: #64748b;">Tỷ lệ CIR theo kênh</h3>
-        <div class="overview-grid" id="channel-cir-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 10px;">
+        <div id="channel-cir-container" style="margin-top: 10px; margin-bottom: 20px;">
             <!-- Render via JS -->
         </div>
 
@@ -115,11 +115,17 @@
             </div>
         </div>
         
-        <div class="charts-row" style="margin-top: 20px;">
-            <div class="chart-card" style="width: 100%;">
-                <div class="chart-header">DT chốt và Chi phí theo ngày</div>
-                <div class="chart-body">
-                    <canvas id="lineChart"></canvas>
+        <div class="charts-row-full" style="margin-top: 20px;">
+            <div class="chart-card">
+                <div class="chart-header">Doanh Thu & Chi Phí theo Nhóm Kênh</div>
+                <div class="chart-body" style="height: 400px;">
+                    <canvas id="groupedLineChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">Tỷ lệ CIR theo Nhóm Kênh (%)</div>
+                <div class="chart-body" style="height: 350px;">
+                    <canvas id="groupedCirChart"></canvas>
                 </div>
             </div>
         </div>
@@ -152,7 +158,8 @@
         const formatVND = (num) => new Intl.NumberFormat('vi-VN').format(num);
         let pieChartInst = null;
         let spendPieChartInst = null;
-        let lineChartInst = null;
+        let groupedLineChartInst = null;
+        let groupedCirChartInst = null;
 
         let globalData = null;
 
@@ -240,15 +247,36 @@
             // Daily Trends
             let daily_trends = {};
             revData.forEach(r => {
-                if (!daily_trends[r.date]) daily_trends[r.date] = {date: r.date, revenue: 0, orders: 0, spend: 0};
-                daily_trends[r.date].revenue += r.total_rev || 0;
-                daily_trends[r.date].orders += r.total_orders || 0;
+                if (!daily_trends[r.date]) {
+                    daily_trends[r.date] = {
+                        date: r.date, 
+                        rev_shopee: 0, rev_tiktok: 0, rev_fb: 0,
+                        spend_shopee: 0, spend_tiktok: 0, spend_fb: 0
+                    };
+                }
+                
+                let rev = r.total_rev || 0;
+                if (r.source === 'Shopee') daily_trends[r.date].rev_shopee += rev;
+                else if (r.source === 'TikTok') daily_trends[r.date].rev_tiktok += rev;
+                else if (r.source === 'Facebook' || r.source === 'Web/App' || r.source === 'Staff') daily_trends[r.date].rev_fb += rev;
             });
+            
             spendData.forEach(s => {
                 if (s.platform.startsWith('Khác - ')) return;
-                if (!daily_trends[s.date]) daily_trends[s.date] = {date: s.date, revenue: 0, orders: 0, spend: 0};
-                daily_trends[s.date].spend += s.total_spend || 0;
+                if (!daily_trends[s.date]) {
+                    daily_trends[s.date] = {
+                        date: s.date, 
+                        rev_shopee: 0, rev_tiktok: 0, rev_fb: 0,
+                        spend_shopee: 0, spend_tiktok: 0, spend_fb: 0
+                    };
+                }
+                
+                let spend = s.total_spend || 0;
+                if (s.platform === 'Shopee' || s.platform === 'SHOPEE_ADS') daily_trends[s.date].spend_shopee += spend;
+                else if (s.platform === 'TikTok Ads' || s.platform === 'TIKTOK_ADS') daily_trends[s.date].spend_tiktok += spend;
+                else if (s.platform === 'Facebook Ads' || s.platform === 'Google Ads') daily_trends[s.date].spend_fb += spend;
             });
+            
             let trend_list = Object.values(daily_trends).sort((a, b) => a.date.localeCompare(b.date));
 
             // Targets & MTD
@@ -292,7 +320,7 @@
             updateOtherCosts(other_costs_list, total_other_costs);
             updatePieChart(pie_chart);
             updateSpendPieChart(spend_pie_chart);
-            updateLineChart(trend_list);
+            updateGroupedLineCharts(trend_list);
         }
 
         function updateOverview(sum) {
@@ -330,26 +358,44 @@
         }
 
         function updateCIRChannels(cirData) {
-            const container = document.getElementById('channel-cir-grid');
+            const container = document.getElementById('channel-cir-container');
             container.innerHTML = '';
-            const colors = {'Shopee': '#f97316', 'TikTok': '#000000', 'Lazada': '#03045e', 'Facebook': '#1877f2', 'Google': '#ea4335'};
+            
+            // Re-group for the CIR display as requested: Shopee, TikTok, FB/Khác
+            let groupedCir = {
+                'Shopee': {spend: 0, revenue: 0},
+                'TikTok': {spend: 0, revenue: 0},
+                'FB/Khác': {spend: 0, revenue: 0}
+            };
             
             for (let [channel, data] of Object.entries(cirData)) {
-                let color = colors[channel] || '#64748b';
-                let cirText = data.cir.toFixed(1) + '%';
+                if (channel === 'Shopee') {
+                    groupedCir['Shopee'].spend += data.spend;
+                    groupedCir['Shopee'].revenue += data.revenue;
+                } else if (channel === 'TikTok') {
+                    groupedCir['TikTok'].spend += data.spend;
+                    groupedCir['TikTok'].revenue += data.revenue;
+                } else {
+                    groupedCir['FB/Khác'].spend += data.spend;
+                    groupedCir['FB/Khác'].revenue += data.revenue;
+                }
+            }
+            
+            const targetRatio = parseFloat(document.getElementById('val-target-ratio').innerText) || 15;
+
+            for (let [channel, data] of Object.entries(groupedCir)) {
+                if (data.revenue === 0 && data.spend === 0) continue;
+                let cir = data.revenue > 0 ? (data.spend / data.revenue * 100) : 0;
+                let cirText = cir.toFixed(1) + '%';
+                let isWarning = cir > targetRatio;
+                let warningClass = isWarning ? 'warning' : '';
                 
-                let card = document.createElement('div');
-                card.className = 'kpi-card';
-                card.style.borderTop = `3px solid ${color}`;
-                card.innerHTML = `
-                    <div class="kpi-title" style="color: ${color}; font-weight: bold;">${channel}</div>
-                    <div class="kpi-value">${cirText}</div>
-                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 5px;">
-                        Chi phí: ${formatVND(data.spend)}<br>
-                        DT: ${formatVND(data.revenue)}
+                let html = `
+                    <div class="cir-pill ${warningClass}" title="Chi phí: ${formatVND(data.spend)} | DT: ${formatVND(data.revenue)}">
+                        ${channel} CIR: <span>${cirText}</span>
                     </div>
                 `;
-                container.appendChild(card);
+                container.innerHTML += html;
             }
         }
         
@@ -426,34 +472,49 @@
             });
         }
 
-        function updateLineChart(trends) {
-            const ctx = document.getElementById('lineChart').getContext('2d');
-            if (lineChartInst) lineChartInst.destroy();
+        function updateGroupedLineCharts(trends) {
+            const ctxLine = document.getElementById('groupedLineChart').getContext('2d');
+            const ctxCir = document.getElementById('groupedCirChart').getContext('2d');
             
-            lineChartInst = new Chart(ctx, {
+            if (groupedLineChartInst) groupedLineChartInst.destroy();
+            if (groupedCirChartInst) groupedCirChartInst.destroy();
+            
+            const labels = trends.map(t => t.date);
+            
+            groupedLineChartInst = new Chart(ctxLine, {
                 type: 'line',
                 data: {
-                    labels: trends.map(t => t.date),
+                    labels: labels,
                     datasets: [
-                        {
-                            label: 'Doanh Thu',
-                            data: trends.map(t => t.revenue),
-                            borderColor: '#2563eb',
-                            backgroundColor: 'transparent',
-                            tension: 0.1
-                        },
-                        {
-                            label: 'Chi Phí',
-                            data: trends.map(t => t.spend),
-                            borderColor: '#ef4444',
-                            backgroundColor: 'transparent',
-                            tension: 0.1
-                        }
+                        { label: 'DT Shopee', data: trends.map(t => t.rev_shopee), borderColor: '#f97316', backgroundColor: 'transparent', tension: 0.1, borderWidth: 2 },
+                        { label: 'DT TikTok', data: trends.map(t => t.rev_tiktok), borderColor: '#000000', backgroundColor: 'transparent', tension: 0.1, borderWidth: 2 },
+                        { label: 'DT FB/Khác', data: trends.map(t => t.rev_fb), borderColor: '#1877f2', backgroundColor: 'transparent', tension: 0.1, borderWidth: 2 },
+                        { label: 'CP Shopee', data: trends.map(t => t.spend_shopee), borderColor: '#f97316', backgroundColor: 'transparent', borderDash: [5, 5], tension: 0.1, borderWidth: 2 },
+                        { label: 'CP TikTok', data: trends.map(t => t.spend_tiktok), borderColor: '#000000', backgroundColor: 'transparent', borderDash: [5, 5], tension: 0.1, borderWidth: 2 },
+                        { label: 'CP FB/Khác', data: trends.map(t => t.spend_fb), borderColor: '#1877f2', backgroundColor: 'transparent', borderDash: [5, 5], tension: 0.1, borderWidth: 2 }
                     ]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false,
-                    interaction: { mode: 'index', intersect: false }
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+            
+            groupedCirChartInst = new Chart(ctxCir, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'CIR Shopee (%)', data: trends.map(t => t.rev_shopee > 0 ? (t.spend_shopee/t.rev_shopee*100).toFixed(1) : 0), borderColor: '#f97316', backgroundColor: 'transparent', tension: 0.1 },
+                        { label: 'CIR TikTok (%)', data: trends.map(t => t.rev_tiktok > 0 ? (t.spend_tiktok/t.rev_tiktok*100).toFixed(1) : 0), borderColor: '#000000', backgroundColor: 'transparent', tension: 0.1 },
+                        { label: 'CIR FB/Khác (%)', data: trends.map(t => t.rev_fb > 0 ? (t.spend_fb/t.rev_fb*100).toFixed(1) : 0), borderColor: '#1877f2', backgroundColor: 'transparent', tension: 0.1 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: { legend: { position: 'bottom' } }
                 }
             });
         }
