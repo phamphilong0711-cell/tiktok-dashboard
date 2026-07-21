@@ -535,6 +535,30 @@
       "total_orders": 26,
       "total_upsell": 0.0,
       "total_final": 6847544.0
+    },
+    {
+      "date": "2026-07-20",
+      "source": "Facebook",
+      "total_rev": 3051000.0,
+      "total_orders": 5,
+      "total_upsell": 0.0,
+      "total_final": 3051000.0
+    },
+    {
+      "date": "2026-07-20",
+      "source": "Shopee",
+      "total_rev": 10888358.0,
+      "total_orders": 42,
+      "total_upsell": 0.0,
+      "total_final": 10888358.0
+    },
+    {
+      "date": "2026-07-20",
+      "source": "TikTok",
+      "total_rev": 4797544.0,
+      "total_orders": 13,
+      "total_upsell": 0.0,
+      "total_final": 4797544.0
     }
   ],
   "spend_data": [
@@ -957,6 +981,16 @@
       "date": "2026-07-20",
       "platform": "Facebook Ads",
       "total_spend": 196387.0
+    },
+    {
+      "date": "2026-07-20",
+      "platform": "Shopee",
+      "total_spend": 1546961.0
+    },
+    {
+      "date": "2026-07-20",
+      "platform": "TikTok Ads",
+      "total_spend": 819652.0
     }
   ],
   "monthly_targets": {
