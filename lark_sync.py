@@ -92,6 +92,7 @@ def sync_lark_revenue():
             {"rev_idx": 5, "ord_idx": 14, "seller": "Tiktok 30S", "source": "TikTok"},
             {"rev_idx": 6, "ord_idx": 15, "seller": "Lazada", "source": "Lazada"},
             {"rev_idx": 7, "ord_idx": 16, "seller": "Facebook", "source": "Facebook"},
+            {"rev_idx": 8, "ord_idx": 17, "seller": "Web/App", "source": "Web/App"},
         ]
         
         for m in mapping:
