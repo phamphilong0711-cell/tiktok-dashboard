@@ -5,8 +5,8 @@ from flask import Flask, request, redirect
 # ==========================================
 # 1. ĐIỀN THÔNG TIN APP CỦA BẠN VÀO ĐÂY
 # ==========================================
-APP_ID = 7494588084948339259
-SECRET = 066a3871e77d2ee4a1a526d70d5071795b59510a
+APP_ID = "7664524398862303248"
+SECRET = "8eba2da7fe7296247df0681980d4af5f4c49d1bc"
 
 # Đảm bảo bạn đã thêm URL này vào mục "Redirect URI" trong cài đặt App trên TikTok Developer Portal
 REDIRECT_URI = "http://localhost:5001/callback" 

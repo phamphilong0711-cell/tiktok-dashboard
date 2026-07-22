@@ -42,6 +42,10 @@ def run_etl():
     print("Bắt đầu kéo dữ liệu Facebook Ads API...")
     facebook_ads_sync.sync_facebook_ads_spend(start_dt.strftime('%Y-%m-%d'), end_dt.strftime('%Y-%m-%d'))
     
+    print("Bắt đầu kéo dữ liệu TikTok Ads API...")
+    import tiktok_ads_sync
+    tiktok_ads_sync.sync_tiktok_ads_spend(start_dt.strftime('%Y-%m-%d'), end_dt.strftime('%Y-%m-%d'))
+    
     print("Bắt đầu xuất file tĩnh data.json...")
     import export_json
     export_json.export_to_json()
