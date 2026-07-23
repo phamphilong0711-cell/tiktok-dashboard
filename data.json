@@ -692,7 +692,7 @@
       "date": "2026-07-22",
       "source": "Facebook",
       "total_rev": 2882000.0,
-      "total_orders": 0,
+      "total_orders": 6,
       "total_upsell": 0.0,
       "total_final": 2882000.0
     },
@@ -1166,6 +1166,11 @@
       "date": "2026-07-22",
       "platform": "Shopee",
       "total_spend": 1350397.0
+    },
+    {
+      "date": "2026-07-22",
+      "platform": "TikTok Ads",
+      "total_spend": 907729.0
     }
   ],
   "monthly_targets": {
