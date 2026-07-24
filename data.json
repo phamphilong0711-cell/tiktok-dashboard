@@ -1171,6 +1171,16 @@
       "date": "2026-07-22",
       "platform": "TikTok Ads",
       "total_spend": 907729.0
+    },
+    {
+      "date": "2026-07-23",
+      "platform": "Shopee",
+      "total_spend": 1515197.0
+    },
+    {
+      "date": "2026-07-23",
+      "platform": "TikTok Ads",
+      "total_spend": 951176.0
     }
   ],
   "monthly_targets": {
