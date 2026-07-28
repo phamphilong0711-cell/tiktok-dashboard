@@ -948,6 +948,11 @@
     },
     {
       "date": "2026-07-01",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 302906.0
+    },
+    {
+      "date": "2026-07-01",
       "platform": "Shopee",
       "total_spend": 962366.0
     },
@@ -965,6 +970,11 @@
       "date": "2026-07-02",
       "platform": "Google Ads",
       "total_spend": 72939.46664
+    },
+    {
+      "date": "2026-07-02",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 883702.0
     },
     {
       "date": "2026-07-02",
@@ -988,6 +998,11 @@
     },
     {
       "date": "2026-07-03",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 955778.0
+    },
+    {
+      "date": "2026-07-03",
       "platform": "Shopee",
       "total_spend": 1306582.0
     },
@@ -1005,6 +1020,11 @@
       "date": "2026-07-04",
       "platform": "Google Ads",
       "total_spend": 180678.064491
+    },
+    {
+      "date": "2026-07-04",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 892011.0
     },
     {
       "date": "2026-07-04",
@@ -1028,6 +1048,11 @@
     },
     {
       "date": "2026-07-05",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 730333.0
+    },
+    {
+      "date": "2026-07-05",
       "platform": "Shopee",
       "total_spend": 1173242.0
     },
@@ -1045,6 +1070,11 @@
       "date": "2026-07-06",
       "platform": "Google Ads",
       "total_spend": 279770.385279
+    },
+    {
+      "date": "2026-07-06",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 858441.0
     },
     {
       "date": "2026-07-06",
@@ -1083,6 +1113,11 @@
     },
     {
       "date": "2026-07-07",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 846920.0
+    },
+    {
+      "date": "2026-07-07",
       "platform": "Shopee",
       "total_spend": 4832100.0
     },
@@ -1108,6 +1143,11 @@
     },
     {
       "date": "2026-07-08",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 837199.0
+    },
+    {
+      "date": "2026-07-08",
       "platform": "Shopee",
       "total_spend": 1603822.0
     },
@@ -1129,7 +1169,7 @@
     {
       "date": "2026-07-09",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 741.233
+      "total_spend": 741233.0
     },
     {
       "date": "2026-07-09",
@@ -1159,7 +1199,7 @@
     {
       "date": "2026-07-10",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 672.139
+      "total_spend": 672139.0
     },
     {
       "date": "2026-07-10",
@@ -1189,7 +1229,7 @@
     {
       "date": "2026-07-11",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 562.81
+      "total_spend": 562810.0
     },
     {
       "date": "2026-07-11",
@@ -1219,7 +1259,7 @@
     {
       "date": "2026-07-12",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 709.307
+      "total_spend": 709307.0
     },
     {
       "date": "2026-07-12",
@@ -1249,7 +1289,7 @@
     {
       "date": "2026-07-13",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 614.971
+      "total_spend": 614971.0
     },
     {
       "date": "2026-07-13",
@@ -1269,7 +1309,7 @@
     {
       "date": "2026-07-14",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 531.368
+      "total_spend": 531368.0
     },
     {
       "date": "2026-07-14",
@@ -1289,7 +1329,7 @@
     {
       "date": "2026-07-15",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 601.022
+      "total_spend": 601022.0
     },
     {
       "date": "2026-07-15",
@@ -1309,7 +1349,7 @@
     {
       "date": "2026-07-16",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 824.227
+      "total_spend": 824227.0
     },
     {
       "date": "2026-07-16",
@@ -1329,7 +1369,7 @@
     {
       "date": "2026-07-17",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 749.124
+      "total_spend": 749124.0
     },
     {
       "date": "2026-07-17",
@@ -1349,7 +1389,7 @@
     {
       "date": "2026-07-18",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 607.092
+      "total_spend": 607092.0
     },
     {
       "date": "2026-07-18",
@@ -1369,7 +1409,7 @@
     {
       "date": "2026-07-19",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 653.696
+      "total_spend": 653696.0
     },
     {
       "date": "2026-07-19",
@@ -1389,7 +1429,7 @@
     {
       "date": "2026-07-20",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 487.735
+      "total_spend": 487735.0
     },
     {
       "date": "2026-07-20",
@@ -1404,7 +1444,7 @@
     {
       "date": "2026-07-21",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 530.639
+      "total_spend": 530639.0
     },
     {
       "date": "2026-07-21",
@@ -1419,7 +1459,7 @@
     {
       "date": "2026-07-22",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 643.876
+      "total_spend": 643876.0
     },
     {
       "date": "2026-07-22",
@@ -1434,7 +1474,7 @@
     {
       "date": "2026-07-23",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 801.853
+      "total_spend": 801853.0
     },
     {
       "date": "2026-07-23",
@@ -1449,7 +1489,7 @@
     {
       "date": "2026-07-24",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 799.837
+      "total_spend": 799837.0
     },
     {
       "date": "2026-07-24",
@@ -1464,7 +1504,7 @@
     {
       "date": "2026-07-25",
       "platform": "Khác - TTLK Shopee",
-      "total_spend": 797.191
+      "total_spend": 797191.0
     },
     {
       "date": "2026-07-25",
