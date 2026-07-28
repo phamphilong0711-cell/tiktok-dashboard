@@ -863,6 +863,46 @@
       "total_orders": 0,
       "total_upsell": 0.0,
       "total_final": 578000.0
+    },
+    {
+      "date": "2026-07-27",
+      "source": "Facebook",
+      "total_rev": 4506976.0,
+      "total_orders": 0,
+      "total_upsell": 0.0,
+      "total_final": 4506976.0
+    },
+    {
+      "date": "2026-07-27",
+      "source": "Lazada",
+      "total_rev": 234527.0,
+      "total_orders": 0,
+      "total_upsell": 0.0,
+      "total_final": 234527.0
+    },
+    {
+      "date": "2026-07-27",
+      "source": "Shopee",
+      "total_rev": 13249000.0,
+      "total_orders": 0,
+      "total_upsell": 0.0,
+      "total_final": 13249000.0
+    },
+    {
+      "date": "2026-07-27",
+      "source": "TikTok",
+      "total_rev": 4025286.0,
+      "total_orders": 0,
+      "total_upsell": 0.0,
+      "total_final": 4025286.0
+    },
+    {
+      "date": "2026-07-27",
+      "source": "Web/App",
+      "total_rev": 399000.0,
+      "total_orders": 0,
+      "total_upsell": 0.0,
+      "total_final": 399000.0
     }
   ],
   "spend_data": [
@@ -899,6 +939,11 @@
     {
       "date": "2026-07-01",
       "platform": "Khác - Booking",
+      "total_spend": 11700000.0
+    },
+    {
+      "date": "2026-07-01",
+      "platform": "Khác - Media MKT",
       "total_spend": 11700000.0
     },
     {
@@ -1034,7 +1079,7 @@
     {
       "date": "2026-07-07",
       "platform": "Khác - Media MKT",
-      "total_spend": 1050000.0
+      "total_spend": 9720000.0
     },
     {
       "date": "2026-07-07",
@@ -1083,6 +1128,11 @@
     },
     {
       "date": "2026-07-09",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 741.233
+    },
+    {
+      "date": "2026-07-09",
       "platform": "Shopee",
       "total_spend": 1162245.0
     },
@@ -1105,6 +1155,11 @@
       "date": "2026-07-10",
       "platform": "Google Ads",
       "total_spend": 315505.949763
+    },
+    {
+      "date": "2026-07-10",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 672.139
     },
     {
       "date": "2026-07-10",
@@ -1133,6 +1188,11 @@
     },
     {
       "date": "2026-07-11",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 562.81
+    },
+    {
+      "date": "2026-07-11",
       "platform": "Shopee",
       "total_spend": 1091799.0
     },
@@ -1155,6 +1215,11 @@
       "date": "2026-07-12",
       "platform": "Google Ads",
       "total_spend": 211639.377877
+    },
+    {
+      "date": "2026-07-12",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 709.307
     },
     {
       "date": "2026-07-12",
@@ -1183,6 +1248,11 @@
     },
     {
       "date": "2026-07-13",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 614.971
+    },
+    {
+      "date": "2026-07-13",
       "platform": "Shopee",
       "total_spend": 1371862.0
     },
@@ -1195,6 +1265,11 @@
       "date": "2026-07-14",
       "platform": "Facebook Ads",
       "total_spend": 531368.0
+    },
+    {
+      "date": "2026-07-14",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 531.368
     },
     {
       "date": "2026-07-14",
@@ -1213,6 +1288,11 @@
     },
     {
       "date": "2026-07-15",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 601.022
+    },
+    {
+      "date": "2026-07-15",
       "platform": "Shopee",
       "total_spend": 2109978.0
     },
@@ -1225,6 +1305,11 @@
       "date": "2026-07-16",
       "platform": "Facebook Ads",
       "total_spend": 824227.0
+    },
+    {
+      "date": "2026-07-16",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 824.227
     },
     {
       "date": "2026-07-16",
@@ -1243,6 +1328,11 @@
     },
     {
       "date": "2026-07-17",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 749.124
+    },
+    {
+      "date": "2026-07-17",
       "platform": "Shopee",
       "total_spend": 1744852.0
     },
@@ -1255,6 +1345,11 @@
       "date": "2026-07-18",
       "platform": "Facebook Ads",
       "total_spend": 607092.0
+    },
+    {
+      "date": "2026-07-18",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 607.092
     },
     {
       "date": "2026-07-18",
@@ -1273,6 +1368,11 @@
     },
     {
       "date": "2026-07-19",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 653.696
+    },
+    {
+      "date": "2026-07-19",
       "platform": "Shopee",
       "total_spend": 1393802.0
     },
@@ -1288,6 +1388,11 @@
     },
     {
       "date": "2026-07-20",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 487.735
+    },
+    {
+      "date": "2026-07-20",
       "platform": "Shopee",
       "total_spend": 1546961.0
     },
@@ -1295,6 +1400,11 @@
       "date": "2026-07-20",
       "platform": "TikTok Ads",
       "total_spend": 819652.0
+    },
+    {
+      "date": "2026-07-21",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 530.639
     },
     {
       "date": "2026-07-21",
@@ -1308,6 +1418,11 @@
     },
     {
       "date": "2026-07-22",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 643.876
+    },
+    {
+      "date": "2026-07-22",
       "platform": "Shopee",
       "total_spend": 1350397.0
     },
@@ -1315,6 +1430,11 @@
       "date": "2026-07-22",
       "platform": "TikTok Ads",
       "total_spend": 907729.0
+    },
+    {
+      "date": "2026-07-23",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 801.853
     },
     {
       "date": "2026-07-23",
@@ -1328,6 +1448,11 @@
     },
     {
       "date": "2026-07-24",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 799.837
+    },
+    {
+      "date": "2026-07-24",
       "platform": "Shopee",
       "total_spend": 1754535.0
     },
@@ -1335,6 +1460,11 @@
       "date": "2026-07-24",
       "platform": "TikTok Ads",
       "total_spend": 980803.0
+    },
+    {
+      "date": "2026-07-25",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 797.191
     },
     {
       "date": "2026-07-25",
@@ -1348,6 +1478,11 @@
     },
     {
       "date": "2026-07-26",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 842868.0
+    },
+    {
+      "date": "2026-07-26",
       "platform": "Shopee",
       "total_spend": 1656120.0
     },
@@ -1355,6 +1490,21 @@
       "date": "2026-07-26",
       "platform": "TikTok Ads",
       "total_spend": 925492.0
+    },
+    {
+      "date": "2026-07-27",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 688175.0
+    },
+    {
+      "date": "2026-07-27",
+      "platform": "Shopee",
+      "total_spend": 1533176.0
+    },
+    {
+      "date": "2026-07-27",
+      "platform": "TikTok Ads",
+      "total_spend": 705602.0
     }
   ],
   "monthly_targets": {
