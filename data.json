@@ -975,6 +975,38 @@
       "total_orders": 0,
       "total_upsell": 0.0,
       "total_final": 1799000.0
+    },
+    {
+      "date": "2026-07-30",
+      "source": "Facebook",
+      "total_rev": 2708488.0,
+      "total_orders": 0,
+      "total_upsell": 0.0,
+      "total_final": 2708488.0
+    },
+    {
+      "date": "2026-07-30",
+      "source": "Shopee",
+      "total_rev": 13536722.0,
+      "total_orders": 0,
+      "total_upsell": 0.0,
+      "total_final": 13536722.0
+    },
+    {
+      "date": "2026-07-30",
+      "source": "TikTok",
+      "total_rev": 12301764.0,
+      "total_orders": 0,
+      "total_upsell": 0.0,
+      "total_final": 12301764.0
+    },
+    {
+      "date": "2026-07-30",
+      "source": "Web/App",
+      "total_rev": 199000.0,
+      "total_orders": 0,
+      "total_upsell": 0.0,
+      "total_final": 199000.0
     }
   ],
   "spend_data": [
@@ -1641,12 +1673,27 @@
     {
       "date": "2026-07-29",
       "platform": "Shopee",
-      "total_spend": 867832.0
+      "total_spend": 1694832.0
     },
     {
       "date": "2026-07-29",
       "platform": "TikTok Ads",
       "total_spend": 970951.0
+    },
+    {
+      "date": "2026-07-30",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 480814.0
+    },
+    {
+      "date": "2026-07-30",
+      "platform": "Shopee",
+      "total_spend": 1427321.0
+    },
+    {
+      "date": "2026-07-30",
+      "platform": "TikTok Ads",
+      "total_spend": 1071312.0
     }
   ],
   "monthly_targets": {
