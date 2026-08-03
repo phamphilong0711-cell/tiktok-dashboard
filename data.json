@@ -1736,6 +1736,11 @@
       "date": "2026-07-31",
       "platform": "TikTok Ads",
       "total_spend": 703256.0
+    },
+    {
+      "date": "2026-08-03",
+      "platform": "Google Ads",
+      "total_spend": 8828.525774
     }
   ],
   "monthly_targets": {
