@@ -1729,6 +1729,11 @@
     },
     {
       "date": "2026-07-31",
+      "platform": "Khác - TTLK Shopee",
+      "total_spend": 472808.0
+    },
+    {
+      "date": "2026-07-31",
       "platform": "Shopee",
       "total_spend": 1491297.0
     },
@@ -1740,7 +1745,7 @@
     {
       "date": "2026-08-03",
       "platform": "Google Ads",
-      "total_spend": 8828.525774
+      "total_spend": 51040.47562
     }
   ],
   "monthly_targets": {
