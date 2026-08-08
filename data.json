@@ -1766,6 +1766,11 @@
       "date": "2026-08-07",
       "platform": "Google Ads",
       "total_spend": 286572.119453
+    },
+    {
+      "date": "2026-08-08",
+      "platform": "Google Ads",
+      "total_spend": 38430.0
     }
   ],
   "monthly_targets": {
